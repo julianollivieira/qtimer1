@@ -5,23 +5,28 @@
         <meta name="description" content="A simple and clean speedcube timer.">
         <meta name="keywords" content="speedcube, timer, rubiks, rubikscube, cube, speedcubetimer, algorithm, perm">
         <meta name="language" content="English">
-        <link rel="stylesheet" href="styles/style.min.css"/>
-        <link rel="icon" type="image/png" href="assets/favicon.png?1"/>
-        <script src="scripts/script.min.js"></script>
+        <link rel="stylesheet" href="styles/style.css" />
+        <link rel="icon" type="image/png" href="assets/favicon.png?1">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="scripts/script.js"></script>
         <script src="scripts/chart.min.js"></script>
     </head>
     <body>
         <div class="left_bar" id="left_bar">
-            <h1 class="title">Qtimer<span style="font-size: 0.3em;">v1.4</span></h1>
+            <h1 class="title">Qtimer<span style="font-size: 0.3em;">v1.5</span></h1>
             <p class="desc">Welcome to the simple and clean speedcube timer.</p>
+
             <div class="menu">
-              <a href="#popup1"><button class='button3'>Info</button></a>
-              <a href="#popup2"><button class='button3'>Changelog</button></a>
-              <button onclick="exportStorageToFile()" class='button3'>Export</button>
-              <button onclick="importStorageFromFile()" class='button3'>Import</button>
-              <a href="#popup3"><button class='button3' style='width: 12vw'>Settings</button></a>
-              <button type="button" name="button" class='button3'>Box: </button>
-              <select id="selectbox" class="button3" onchange="onSelectBoxChange()">
+              <a href="#popup1"><button class="button3">Info</button></a>
+              <a href="#popup2"><button class="button3">What's new</button></a>
+
+              <button id="exportButton" class="button3">Export</button>
+              <button id="importButton" class="button3">Import</button>
+
+              <a href="#popup3"><button class="button3" style="width: 12vw">Settings</button></a>
+
+              <button type="button" name="button" class="button3">Box: </button>
+              <select id="selectbox" class="select-box button3">
                 <option value="0">1</option>
                 <option value="1">2</option>
                 <option value="2">3</option>
@@ -43,71 +48,115 @@
                 <option value="18">19</option>
                 <option value="19">20</option>
               </select>
+
             </div>
+
+            <div class="top_times">
+              <table>
+                <tr>
+                  <td colspan="4">
+                    Best
+                  </td>
+                </tr>
+                <tr>
+                  <td>MO3</td>
+                  <td>AO5</td>
+                  <td>AO12</td>
+                  <td>Time</td>
+                </tr>
+                <tr>
+                  <td><p id="mo3_val_best" class="val_b">0.00</p></td>
+                  <td><p id="ao5_val_best" class="val_b">0.00</p></td>
+                  <td><p id="ao12_val_best" class="val_b">0.00</p></td>
+                  <td><p id="fastest_val_best" class="val_b">0.00</p></td>
+                </tr>
+              </table>
+              
+              
+              
+              
+            </div>
+
             <div class="time_list">
-                <p class='timelist_p'>Timelist</p>
+                <p class="timelist_p">Timelist</p>
                 <template id="tablerow_template">
                     <tr>
-                        <td id="number" onclick="showScramble()"></td>
-                        <td id="time" onclick="showScramble()"></td>
-                        <td id="ao5" onclick="showScramble()"></td>
-                        <td id="ao12" onclick="showScramble()"></td>
+                        <td class="time-label" id="number"></td>
+                        <td class="time-label" id="time"></td>
+                        <td class="time-label" id="ao5"></td>
+                        <td class="time-label" id="ao12"></td>
                         <td id="delete">&times;</td>
                     </tr>
                 </template>
                 <table id="the_time_table">
                 </table>
             </div>
-            <p id="down_right">Copyright 2019 Julian Ollivieira</p>
+            <a id="down_right" target="_blank" href="https://github.com/julianollivieira/qtimer"><img src="assets/GitHub-Mark-64px.png" alt="Github" width="30px">View on Github</a>
         </div>
+
         <div class="top_bar" id="top_bar">
             <p id="scramble"></p>
         </div>
         <div class="main" id="main">
+
+          <!-- Changelog popup -->
           <div id="popup1" class="overlay">
           	<div class="popup">
           		<h2>Information</h2>
           		<a class="close" href="#">&times;</a>
           		<div class="content">
                 <br>All your times are stored locally (on your machine), there is a very big chance that if you clear your browser cookies that <span style="color: #ff4747; font-weight: bold;">all your times are gone.</span><br>
-                Make sure you make a backup! (Using the 'Export to file' button in the settings menu)<br>
+                Make sure you make a backup! (Using the 'Export to file' button
+                in the settings menu)<br>
           			<br>
                 Made by<br>
-                Julian Ollivieira
+                Julian Ollivieira 
+                <a target="_blank" href="https://github.com/julianollivieira">(My github)</a>
                 <br><br>
                 Thanks to<br>
-                - <a target="_blank" href='https://indestructibletype.com'>indestructibletype.com</a> for the Jost* font. <br>
-                - <a target="_blank" href='https://www.dafont.com/dusit-supasawat.d411'>Dusit Supasawat</a> for the DS-Digital font. <br>
-                - <a target="_blank" href='https://www.chartjs.org'>www.chartjs.org</a> for their awesome javascript charts. <br>
-                - <a target="_blank" href='https://www.rubikscube.info'>rubikscube.info</a> for the scramble algorithm.
+                - <a target="_blank" href="https://indestructibletype.com">indestructibletype.com</a> for the Jost* font. <br>
+                - <a target="_blank" href="https://www.dafont.com/dusit-supasawat.d411">Dusit Supasawat</a> for the DS-Digital font. <br>
+                - <a target="_blank" href="https://www.chartjs.org">www.chartjs.org</a> for their awesome javascript charts. <br>
+                - <a target="_blank" href="https://www.rubikscube.info">rubikscube.info</a> for the scramble algorithm.
           		</div>
           	</div>
           </div>
+
+          <!-- Info popup -->
           <div id="popup2" class="overlay">
           	<div class="popup">
-          		<h2>Changelog</h2>
+          		<h2>What's new</h2>
           		<a class="close" href="#">&times;</a>
           		<div class="content">
-                <br>Changelog v1.4<br>
-                - Added the settings menu. <br>
-                - Added the ability to hide the timer and other components when the timer is running. <br>
-                - Moved the clear current box button to the settings menu. <br>
-                - Added a button to clear all boxes to the settings menu. <br>
-                - You can now see your old scrambles by clicking on a solve in the list. <br>
-                - Fixed the graph always being on top. <br>
-                - Fixed "Box 20". <br>
-                <br>Changelog v1.3<br>
-                - Layout redesigned to fit more screen sizes. <br>
-                - Added the ability to start/stop the timer on mobile devices. (by touch) <br>
-                - Added the changelog button. <br>
-                - Added a time graph. <br>
-                <br>Changelog v1.2<br>
-                - Complete rewrite. <br>
-                - Added boxes. (20) <br>
-                - Scrambles are now saved per solve. <br>
+                <br>In update version 1.5
+                <br>- Both time-reset buttons now clear the timer and all other time indicators.
+                <br>- Fixed times above 1 minute.
+                <br>- Big changes under the hood.
+                <br>- Fixed the chart sometimes not showing or updating.
+                <br>- Added the mean of three (mo3) indicator.
+                <br>- Added an indicator to show your best MO3, AO5, AO12 and single times in your current box.
+                <br><br><br>--------------- Older updates ---------------
+                <br><br>Changes in version 1.4
+                <br>- Added the settings menu.
+                <br>- Added the ability to hide the timer and other components.
+                <br>- Added a button to clear all boxes to the settings menu.
+                <br>- Moved the clear current box to the setting menu.
+                <br>- You can now see your old scrambles (per time) by clicking on a solve in the list.
+                <br>- Fixed the graph always being on top.
+                <br>- Fixed box 20.
+                <br><br>Changes in version 1.3
+                <br>- Layout redesigned to fit more screen sizes.
+                <br>- Added the ability to start/stop the timer using a touchscreen .
+                <br>- Added the what's new button.
+                <br>- Added a time graph.
+                <br><br>Changes in version 1.2
+                <br>- Added 20 boxes for more organizable storage.
+                <br>- Scrambles are now saved per solve.
           		</div>
           	</div>
           </div>
+
+          <!-- Settings popup -->
           <div id="popup3" class="overlay">
           	<div class="popup">
           		<h2>Settings</h2>
@@ -115,42 +164,54 @@
               <div class="content">
                 <br>
                 <label class="container">Show chart/graph
-                  <input type="checkbox" checked="checked" onchange="showChartChange()" id='showChartCheck'>
+                  <input type="checkbox" checked="checked" id="showChartCheck">
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Hide timer when timing
-                  <input type="checkbox" id='showTimerCheck'>
+                  <input type="checkbox" id="showTimerCheck">
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Hide UI when timing
-                  <input type="checkbox" id='showUI'>
+                  <input type="checkbox" id="showUI">
                   <span class="checkmark"></span>
                 </label>
-                <button onclick="resetEntireStorage2()" class='button2' style="width: 10vw">Clear all times</button>
-                <button onclick="clearOneBox()" class='button2' style="width: 10vw">Clear current box</button>
+                <button class="clear-all-boxes-btn" class="button2" style="width: 10vw">Clear all times</button>
+                <button class="clear-curr-box-btn" class="button2" style="width: 10vw">Clear current box</button>
               </div>
+
+
           	</div>
           </div>
+
+
+
             <h1 id="the_timer">00:00.00</h1>
             <div id="stats">
-              <div id="stats2">
+              <div class="stats2">
                 <div class="stat_div">
                     <p id="ao5_text" class="stat">AO5</p>
-                    <p id="ao5_val"></p>
+                    <p id="ao5_val" class="val">-</p>
                 </div>
                 <div class="stat_div">
                     <p id="ao12_text" class="stat">AO12</p>
-                    <p id="ao12_val"></p>
+                    <p id="ao12_val" class="val">-</p>
+                </div>
+                <div class="stat_div">
+                  <p id="mo3_text" class="stat">MO3</p>
+                  <p id="mo3_val" class="val">-</p>
                 </div>
                 <div class="stat_div">
                     <p id="mean_text" class="stat">Mean</p>
-                    <p id="mean_val"></p>
+                    <p id="mean_val" class="val">-</p>
                 </div>
               </div>
-              </div>
-              <div class="chartBox">
-                <canvas id="myChart" width="500" height="250"></canvas>
-              </div>
+
+            </div>
+
+            <div class="chartBox">
+              <canvas id="myChart" width="500" height="250"></canvas>
+            </div>
+
         </div>
     </body>
 </html>
