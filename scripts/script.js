@@ -237,6 +237,14 @@ $(document).ready(function(){
   let hideTimer = false;
   let hideUI = false;
 
+  // If first time, create localstorage item and display help message
+  if(localStorage.getItem('QT_STORAGE') === null){
+    // Initialize item in localstorage
+    localStorage.setItem('QT_STORAGE', JSON.stringify([[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]));
+    // Show message
+    $('#welcome_message').css('visibility', 'visible');
+  }
+  
   class QTStorage {
     constructor(){
       this.curr_box_id = $('.select-box').val();
@@ -650,6 +658,7 @@ $(document).ready(function(){
         timer.keydown = false;
       } else {
         timer.start();
+        $('#welcome_message').css('visibility', 'hidden');
         if(hideTimer){
           showTimer(false);
         }

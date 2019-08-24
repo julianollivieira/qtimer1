@@ -404,3 +404,8 @@ canvas {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+#welcome_message {
+  margin-left: 15vw;
+  visibility: hidden;
+}
