@@ -13,7 +13,7 @@
     </head>
     <body>
         <div class="left_bar" id="left_bar">
-            <h1 class="title">Qtimer<span style="font-size: 0.3em;">v1.5.1</span></h1>
+            <h1 class="title">Qtimer<span style="font-size: 0.3em;">v1.5.2</span></h1>
             <p class="desc">Welcome to the simple and clean speedcube timer.</p>
 
             <div class="menu">
@@ -71,10 +71,6 @@
                   <td><p id="fastest_val_best" class="val_b">0.00</p></td>
                 </tr>
               </table>
-              
-              
-              
-              
             </div>
 
             <div class="time_list">
@@ -128,14 +124,20 @@
           		<h2>What's new</h2>
           		<a class="close" href="#">&times;</a>
           		<div class="content">
-                <br>In update version 1.5
+                <br>Changes in version 1.5.2 (current)
+                <br>- Settings are now saved.
+                <br>- Fixed the import button.
+                <br>- Fixed the chart doing weird things when hovered over.
+                <br><br>Changes inversion 1.5.1
+                <br>- Added a new welcome message for first time users.
+                <br>- Fixed a bug where first time users could not start the timer.
+                <br><br>Changes in version 1.5
                 <br>- Both time-reset buttons now clear the timer and all other time indicators.
                 <br>- Fixed times above 1 minute.
                 <br>- Big changes under the hood.
                 <br>- Fixed the chart sometimes not showing or updating.
                 <br>- Added the mean of three (mo3) indicator.
                 <br>- Added an indicator to show your best MO3, AO5, AO12 and single times in your current box.
-                <br><br><br>--------------- Older updates ---------------
                 <br><br>Changes in version 1.4
                 <br>- Added the settings menu.
                 <br>- Added the ability to hide the timer and other components.
@@ -207,7 +209,7 @@
               </div>
 
             </div>
-            <p id="welcome_message">Welcome! you can start/stop the timer by pressing the spacebar.</p>
+            <p id="info_message"></p>
 
             <div class="chartBox">
               <canvas id="myChart" width="500" height="250"></canvas>
