@@ -405,7 +405,6 @@ canvas {
   transform: rotate(45deg);
 }
 
-#welcome_message {
+#info_message {
   margin-left: 15vw;
-  visibility: hidden;
 }
